@@ -5,8 +5,9 @@
   - 리버젼 방식 : 너무 과열된 애들은 다시 내릴 것이고 급락한 애는 다시 오를것
 
 1) clv = ((close-low)-(high-close))/(high-low);
-  over_vol = volume > ts_mean(volume, 252);
-  -zscore(clv) * rank(over_vol)
+   
+    over_vol = volume > ts_mean(volume, 252);
+    -zscore(clv) * rank(over_vol)
 
 - result : 턴오버 135%
 - reason :
@@ -14,7 +15,8 @@
   - over_vol = volume > ts_mean(volume, 252); -> 연속 값이 아닌 트루 폴스값으로 나옴
 
 2) vol_surprise = volume / ts_mean(volume, 252);
-  -zscore(clv) * rank(vol_surprise)
+   
+    -zscore(clv) * rank(vol_surprise)
 
 - 개선방향 : 거래량이 평균 대비 얼마나 큰지를 연속적으로 반영
 
@@ -24,15 +26,19 @@
 
   
 4) event = volume>adv20;
+   
    alpha = (-ts_delta(close,5));
-  trade_when(event,alpha,-1)
+   
+    trade_when(event,alpha,-1)
 
 - 거래량과 가격 차이를 기준으로 거래
 - 거래량이 20일 평균보다 크면 최근 5일간의 가격 차이를 기준으로 거래
 
 5) vwap_dev = (close - vwap) / vwap;
-  vol_shock = ts_zscore(volume, 20);
-  -rank(vwap_dev) * rank(vol_shock)
+   
+    vol_shock = ts_zscore(volume, 20);
+   
+    -rank(vwap_dev) * rank(vol_shock)
 
 - 종가가 VWAP위로 많이 뜬 종목
 - 거래량도 비정상적으로 많음
@@ -60,9 +66,10 @@
   - 리버젼 + 리버젼
 
 8) z1 = (close - ts_mean(close, 10)) / ts_std_dev(close, 10);
-  z2 = (close - vwap) / vwap;
+   
+    z2 = (close - vwap) / vwap;
 
-  -(rank(z1) + rank(z2))
+    -(rank(z1) + rank(z2))
 
 - 최근 평균 대비 과열 + 당일 VWAP 대비 과열 -> 과열이면 숏 과매도면 롱
 - z1 = (close - ts_mean(close, 10)) / ts_std_dev(close, 10);
