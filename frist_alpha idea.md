@@ -85,9 +85,12 @@
   - sharpe : 1.72 turnover : 55% fitness : 1.0
 
 ### 최종 첫번째 알파 
-9) z1 = (close - ts_mean(close, 10)) / ts_std_dev(close, 10);
-   z2 = ts_mean((close - vwap) / vwap, 2);
-   -(rank(z1) + rank(z2))
+9)
+    z1 = (close - ts_mean(close, 10)) / ts_std_dev(close, 10);
+  
+     z2 = ts_mean((close - vwap) / vwap, 2);
+  
+     -(rank(z1) + rank(z2))
    
 - setting : decay :4 , industry
 - z2에 ts_mean 추가
